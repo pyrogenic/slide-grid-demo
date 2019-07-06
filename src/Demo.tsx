@@ -5,14 +5,15 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 
-import './App.css';
+let NEXT_TILE_ID = 0;
 
-interface IDemoState {
-  tiles: string[];
+interface ITile {
+  id: string;
+  title: string;
 }
 
-function SlideGridLink() {
-  return <a href="https://github.com/pyrogenic/slide-grid"><code>slide-grid</code></a>;
+interface IDemoState {
+  tiles: ITile[];
 }
 
 export default abstract class Demo extends React.Component<{}, IDemoState> {
@@ -34,27 +35,35 @@ export default abstract class Demo extends React.Component<{}, IDemoState> {
 
   protected abstract get title(): string;
 
+  protected getTileId(tile: string) {
+    return `${this.title}-${tile}`;
+  }
+
   protected renderDemo() {
     return <SlideGrid exchange={this.exchange}>
-    {this.state.tiles.map((tile) => <div className="tile" key={tile} id={tile}>
-      <div>{tile}</div>
+    {this.state.tiles.map((tile) => <div className="tile" key={tile.id} id={tile.id}>
+      <div>{tile.title}</div>
     </div>)}
     </SlideGrid>
   }
 
-  private newDemo() {
-    const tiles: string[] = []
+  protected createTile(title: string) {
+    return {id: `tile-${NEXT_TILE_ID++}`, title};
+  }
+
+  protected newDemo() {
+    const tiles: ITile[] = []
     for (let i = 1; i <= 16; ++i) {
-      tiles.push(i.toString());
+      tiles.push(this.createTile(i.toString()));
     }
     return tiles;
   }
 
   protected exchange = (a: string, b: string) => {
     this.setState((state) => {
-      const ai = state.tiles.indexOf(a);
-      const bi = state.tiles.indexOf(b);
-      const tiles: string[] = [];
+      const ai = state.tiles.findIndex((e) => e.id === a);
+      const bi = state.tiles.findIndex((e) => e.id === b);
+      const tiles: ITile[] = [];
       console.log({ a, ai, b, bi });
       state.tiles.forEach((tile, i) => {
         if (i === ai) {
