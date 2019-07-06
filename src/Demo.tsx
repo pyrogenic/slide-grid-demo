@@ -23,7 +23,7 @@ export default abstract class Demo extends React.Component<{}, IDemoState> {
   }
 
   public render() {
-    return <Row>
+    return <Row className="demo">
         <Col/>
         <Col md={"auto"}>
           <h3>{this.title}</h3>
@@ -76,7 +76,6 @@ export default abstract class Demo extends React.Component<{}, IDemoState> {
       const ai = state.tiles.findIndex((e) => e.id === a);
       const bi = state.tiles.findIndex((e) => e.id === b);
       const tiles: ITile[] = [];
-      console.log({ a, ai, b, bi });
       state.tiles.forEach((tile, i) => {
         if (i === ai) {
           tiles[bi] = tile;

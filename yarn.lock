@@ -1103,8 +1103,8 @@
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
 "@pyrogenic/slide-grid@pyrogenic/slide-grid":
-  version "0.1.1"
-  resolved "https://codeload.github.com/pyrogenic/slide-grid/tar.gz/7eb4350c53181b7392de218742e2b46db5bace65"
+  version "0.1.6"
+  resolved "https://codeload.github.com/pyrogenic/slide-grid/tar.gz/7bf04d720b72a99888190c8718f6bce066b596a5"
   dependencies:
     lodash "4.17.11"
 
