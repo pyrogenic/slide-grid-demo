@@ -35,8 +35,20 @@ export default abstract class Demo extends React.Component<{}, IDemoState> {
 
   protected abstract get title(): string;
 
-  protected getTileId(tile: string) {
-    return `${this.title}-${tile}`;
+  protected getTileById(id: string) {
+    return this.state.tiles.find((e) => e.id === id)!;
+  }
+
+  protected getTileIndexById(id: string) {
+    return this.state.tiles.findIndex((e) => e.id === id)!;
+  }
+
+  protected getTileByTitle(title: string) {
+    return this.state.tiles.find((e) => e.title === title)!;
+  }
+
+  protected getTileIndexByTitle(title: string) {
+    return this.state.tiles.findIndex((e) => e.title === title)!;
   }
 
   protected renderDemo() {
