@@ -4,18 +4,11 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
+import Demo from './Demo';
 
-import './App.css';
+class BasicDemo extends Demo {
+  protected title = "Basic Demo";
 
-interface IAppState {
-  tiles: string[];
-}
-
-function SlideGridLink() {
-  return <a href="https://github.com/pyrogenic/slide-grid"><code>slide-grid</code></a>;
-}
-
-class App extends React.Component<{}, IAppState> {
   constructor(props: {}) {
     super(props);
     const tiles: string[] = [];//["_"];
@@ -49,26 +42,6 @@ class App extends React.Component<{}, IAppState> {
       </Row>
     </Container>;
   }
-
-  private exchange = (a: string, b: string) => {
-    this.setState((state) => {
-      const ai = state.tiles.indexOf(a);
-      const bi = state.tiles.indexOf(b);
-      const tiles: string[] = [];
-      console.log({ a, ai, b, bi });
-      state.tiles.forEach((tile, i) => {
-        if (i === ai) {
-          tiles[bi] = tile;
-        } else if (i === bi) {
-          tiles[ai] = tile;
-        } else {
-          tiles[i] = tile;
-        }
-      });
-      return { tiles };
-    })
-  }
-
 }
 
-export default App;
+export default BasicDemo;

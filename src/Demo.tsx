@@ -7,7 +7,7 @@ import Form from 'react-bootstrap/Form';
 
 import './App.css';
 
-interface IAppState {
+interface IDemoState {
   tiles: string[];
 }
 
@@ -15,42 +15,42 @@ function SlideGridLink() {
   return <a href="https://github.com/pyrogenic/slide-grid"><code>slide-grid</code></a>;
 }
 
-class App extends React.Component<{}, IAppState> {
+export default abstract class Demo extends React.Component<{}, IDemoState> {
   constructor(props: {}) {
     super(props);
-    const tiles: string[] = [];//["_"];
-    for (let i = 1; i <= 16; ++i) {
-      tiles.push(i.toString());
-    }
-    this.state = { tiles };
+    this.state = { tiles: this.newDemo() };
   }
 
   public render() {
-    return <Container>
-        <h1>
-          <SlideGridLink/>
-        </h1>
-        <h2>Overview</h2>
-        <p>
-          <SlideGridLink/> is a hybrid React/DOM component that supports lightweight, touch-aware reordering of children.
-        </p>
-        <h2>Demos</h2>
-      <Row>
+    return <Row>
         <Col/>
         <Col md={"auto"}>
-          <h3>Basic Grid</h3>
-          <SlideGrid exchange={this.exchange}>
-            {this.state.tiles.map((tile) => <div className="tile" key={tile} id={tile}>
-              <div>{tile}</div>
-            </div>)}
-          </SlideGrid>
+          <h3>{this.title}</h3>
+          {this.renderDemo()}
         </Col>
         <Col/>
-      </Row>
-    </Container>;
+      </Row>;
   }
 
-  private exchange = (a: string, b: string) => {
+  protected abstract get title(): string;
+
+  protected renderDemo() {
+    return <SlideGrid exchange={this.exchange}>
+    {this.state.tiles.map((tile) => <div className="tile" key={tile} id={tile}>
+      <div>{tile}</div>
+    </div>)}
+    </SlideGrid>
+  }
+
+  private newDemo() {
+    const tiles: string[] = []
+    for (let i = 1; i <= 16; ++i) {
+      tiles.push(i.toString());
+    }
+    return tiles;
+  }
+
+  protected exchange = (a: string, b: string) => {
     this.setState((state) => {
       const ai = state.tiles.indexOf(a);
       const bi = state.tiles.indexOf(b);
@@ -70,5 +70,3 @@ class App extends React.Component<{}, IAppState> {
   }
 
 }
-
-export default App;
