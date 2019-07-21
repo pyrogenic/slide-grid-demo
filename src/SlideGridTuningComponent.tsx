@@ -1,8 +1,19 @@
 import React from "react";
-import { ISlideGridTuning } from "@pyrogenic/slide-grid/lib/SlideGrid";
+import { ISlideGridTuning } from "./SlideGrid";
 import Form from "react-bootstrap/Form";
 
 export default class SlideGridTuningComponent extends React.Component<{ tuning: ISlideGridTuning, change(tuning: Partial<ISlideGridTuning>): void }> {
+    public componentDidMount() {
+        const tuning = sessionStorage.getItem("SlideGridTuning");
+        if (tuning) {
+            this.props.change(JSON.parse(tuning as any));
+        }
+    }
+
+    public componentDidUpdate() {
+        sessionStorage.setItem("SlideGridTuning", JSON.stringify(this.props.tuning));
+    }
+
     public render() {
         const { tuning } = this.props;
         return <Form>
@@ -13,12 +24,22 @@ export default class SlideGridTuningComponent extends React.Component<{ tuning: 
             </Form.Group>
             <Form.Group>
                 <Form.Label>Motion on Rails</Form.Label>
-                <Form.Check value={tuning.motionOnRails.toString()}
+                <Form.Check checked={tuning.motionOnRails}
                     onChange={(event: any) => this.props.change({ motionOnRails: !tuning.motionOnRails })}/>
+            </Form.Group>
+            <Form.Group>
+                <Form.Label>keepDragInBounds</Form.Label>
+                <Form.Check checked={tuning.keepDragInBounds}
+                    onChange={(event: any) => this.props.change({ keepDragInBounds: !tuning.keepDragInBounds })}/>
+            </Form.Group>
+            <Form.Group>
+                <Form.Label>ignoreDragOutOfBounds</Form.Label>
+                <Form.Check checked={tuning.ignoreDragOutOfBounds}
+                    onChange={(event: any) => this.props.change({ ignoreDragOutOfBounds: !tuning.ignoreDragOutOfBounds })}/>
             </Form.Group>
             <ul>
                     {Object.getOwnPropertyNames(tuning).map((prop) =>
-                        <li>{prop}: {`${tuning[prop as keyof ISlideGridTuning]}`}</li>
+                        <li key={prop}>{prop}: {`${tuning[prop as keyof ISlideGridTuning]}`}</li>
                     )}
                 </ul>
         </Form>;
