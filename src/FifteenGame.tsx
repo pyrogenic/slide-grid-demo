@@ -41,7 +41,7 @@ class FifteenGame extends Demo {
     }
   }
 
-  private canExchange = (a: string, b?: string): boolean => {
+  protected canExchange = (a: string, b?: string): boolean => {
     const aBlank = this.getTileById(a).title === "_";
     if (!b) {
       b = this.getTileByTitle("_").id;

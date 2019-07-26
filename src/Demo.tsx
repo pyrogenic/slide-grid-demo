@@ -38,6 +38,8 @@ export default abstract class Demo extends React.Component<IDemoProps, IDemoStat
 
   protected abstract get title(): string;
 
+  protected canExchange?(a: string, b?: string): boolean;
+
   protected getTileById(id: string) {
     return this.state.tiles.find((e) => e.id === id)!;
   }
@@ -56,7 +58,7 @@ export default abstract class Demo extends React.Component<IDemoProps, IDemoStat
 
   protected renderDemo() {
     const {tuning} = this.props;
-    return <SlideGrid tuning={tuning} exchange={this.exchange}>
+    return <SlideGrid tuning={tuning} exchange={this.exchange} canExchange={this.canExchange}>
       {this.state.tiles.map((tile) => <div className="tile" key={tile.id} id={tile.id}>
         {this.renderTileContent(tile)}
       </div>)}

@@ -4,6 +4,7 @@ import { ISlideGridTuning, DEFAULT_TUNING } from './SlideGrid';
 import Container from 'react-bootstrap/Container';
 import './App.css';
 import BasicDemo from './BasicDemo';
+import StrictDemo from './StrictDemo';
 import FifteenGame from './FifteenGame';
 import SlideGridTuningComponent from './SlideGridTuningComponent';
 
@@ -35,7 +36,8 @@ class App extends React.Component<{}, { tuning: ISlideGridTuning }> {
       }} />
       <h2>Demos</h2>
       <BasicDemo tuning={tuning}/>
-      <FifteenGame  tuning={tuning}/>
+      <StrictDemo tuning={tuning}/>
+      <FifteenGame tuning={tuning}/>
     </Container>;
   }
 }
