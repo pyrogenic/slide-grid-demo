@@ -1,13 +1,12 @@
+//import SlideGrid, { ISlideGridTuning } from '@pyrogenic/slide-grid/lib/SlideGrid';
+import SlideGrid, { ISlideGridTuning } from './SlideGrid';
 import React from 'react';
-import SlideGrid from '@pyrogenic/slide-grid/lib/SlideGrid';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
 
 let NEXT_TILE_ID = 0;
 
-interface ITile {
+export interface ITile {
   id: string;
   title: string;
 }
@@ -16,21 +15,25 @@ interface IDemoState {
   tiles: ITile[];
 }
 
-export default abstract class Demo extends React.Component<{}, IDemoState> {
-  constructor(props: {}) {
+interface IDemoProps {
+  tuning: ISlideGridTuning;
+};
+
+export default abstract class Demo extends React.Component<IDemoProps, IDemoState> {
+  constructor(props: Readonly<IDemoProps>) {
     super(props);
     this.state = { tiles: this.newDemo() };
   }
 
   public render() {
     return <Row className="demo">
-        <Col/>
-        <Col md={"auto"}>
-          <h3>{this.title}</h3>
-          {this.renderDemo()}
-        </Col>
-        <Col/>
-      </Row>;
+      <Col />
+      <Col md={"auto"}>
+        <h3>{this.title}</h3>
+        {this.renderDemo()}
+      </Col>
+      <Col />
+    </Row>;
   }
 
   protected abstract get title(): string;
@@ -52,15 +55,20 @@ export default abstract class Demo extends React.Component<{}, IDemoState> {
   }
 
   protected renderDemo() {
-    return <SlideGrid exchange={this.exchange}>
-    {this.state.tiles.map((tile) => <div className="tile" key={tile.id} id={tile.id}>
-      <div>{tile.title}</div>
-    </div>)}
+    const {tuning} = this.props;
+    return <SlideGrid tuning={tuning} exchange={this.exchange}>
+      {this.state.tiles.map((tile) => <div className="tile" key={tile.id} id={tile.id}>
+        {this.renderTileContent(tile)}
+      </div>)}
     </SlideGrid>
   }
 
+  protected renderTileContent(tile: ITile) {
+    return <div>{tile.title}</div>;
+  }
+
   protected createTile(title: string) {
-    return {id: `tile-${NEXT_TILE_ID++}`, title};
+    return { id: `tile-${NEXT_TILE_ID++}`, title };
   }
 
   protected newDemo() {
@@ -90,3 +98,4 @@ export default abstract class Demo extends React.Component<{}, IDemoState> {
   }
 
 }
+

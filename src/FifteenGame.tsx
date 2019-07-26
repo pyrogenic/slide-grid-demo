@@ -1,12 +1,10 @@
-import React from 'react';
-import SlideGrid from '@pyrogenic/slide-grid/lib/SlideGrid';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
-import Demo from './Demo';
 import compact from 'lodash/compact';
 import shuffle from 'lodash/shuffle';
+import React from 'react';
+import Button from 'react-bootstrap/Button';
+import Row from 'react-bootstrap/Row';
+import Demo from './Demo';
+import SlideGrid from './SlideGrid';
 
 class FifteenGame extends Demo {
   protected title = "15 Game";
@@ -21,18 +19,18 @@ class FifteenGame extends Demo {
 
   protected renderDemo() {
     return <>
-    <Row className="mb-1">
-    <Button onClick={() => this.setState({tiles: this.newDemo()})}>Reset</Button>
-    &nbsp;
-    <Button onClick={() => this.setState({tiles: shuffle(this.state.tiles)})}>Shuffle</Button>
-    </Row>
-    <Row>
-    <SlideGrid exchange={this.exchange} canExchange={this.canExchange} tap={this.tap}>
-      {this.state.tiles.map((tile) => <div className={compact(["tile", tile.title === "_" && "blank"]).join(" ")} key={tile.id} id={tile.id}>
-        <div>{tile.title}</div>
-      </div>)}
-    </SlideGrid>
-    </Row>
+      <Row className="mb-1">
+        <Button onClick={() => this.setState({ tiles: this.newDemo() })}>Reset</Button>
+        &nbsp;
+    <Button onClick={() => this.setState({ tiles: shuffle(this.state.tiles) })}>Shuffle</Button>
+      </Row>
+      <Row>
+        <SlideGrid exchange={this.exchange} canExchange={this.canExchange} tap={this.tap}>
+          {this.state.tiles.map((tile) => <div className={compact(["tile", tile.title === "_" && "blank"]).join(" ")} key={tile.id} id={tile.id}>
+            <div>{tile.title}</div>
+          </div>)}
+        </SlideGrid>
+      </Row>
     </>;
   }
 
@@ -65,3 +63,4 @@ class FifteenGame extends Demo {
 }
 
 export default FifteenGame;
+

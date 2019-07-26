@@ -1,4 +1,19 @@
 .slide-grid {
+  user-select: none;
+  touch-action: none;  
+}
+
+.slide-grid > * {
+  position: relative;
+}
+
+.dragging {
+  z-index: 1;
+}
+
+/*************/
+
+.slide-grid {
   line-height: initial;
   box-sizing: initial;
 }
