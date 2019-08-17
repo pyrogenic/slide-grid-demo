@@ -46,6 +46,12 @@
   background: white;
 }
 
+.tile .half-size > * {
+  display: block;
+  height: 50%;
+  font-size: 1rem;
+}
+
 .tile.blank > div {
   border: 1px solid transparent;
   color: transparent;

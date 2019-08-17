@@ -3,11 +3,15 @@ import shuffle from 'lodash/shuffle';
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
-import Demo from './Demo';
+import Demo, { IDemoState } from './Demo';
 import SlideGrid from './SlideGrid';
 
 class FifteenGame extends Demo {
   protected title = "15 Game";
+  
+  protected getDefaultState(): Readonly<IDemoState> {
+    return { tiles: this.newDemo() };
+  }
 
   protected newDemo() {
     const tiles = [this.createTile("_")];
@@ -34,7 +38,7 @@ class FifteenGame extends Demo {
     </>;
   }
 
-  private tap = (id: string) => {
+  protected tap = (id: string) => {
     const blank = this.getTileByTitle("_");
     if (this.canExchange(id, blank.id)) {
       this.exchange(id, blank.id);

@@ -1,8 +1,7 @@
-//import SlideGrid, { ISlideGridTuning } from '@pyrogenic/slide-grid/lib/SlideGrid';
-import SlideGrid, { ISlideGridTuning } from './SlideGrid';
 import React from 'react';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import SlideGrid, { ISlideGridTuning } from './SlideGrid';
 
 let NEXT_TILE_ID = 0;
 
@@ -11,18 +10,21 @@ export interface ITile {
   title: string;
 }
 
-interface IDemoState {
+export interface IDemoState {
   tiles: ITile[];
 }
 
-interface IDemoProps {
+export interface IDemoProps {
   tuning: ISlideGridTuning;
 };
 
-export default abstract class Demo extends React.Component<IDemoProps, IDemoState> {
+export default abstract class Demo<TState extends IDemoState = IDemoState> extends React.Component<IDemoProps, TState> {
+  protected tap?: ((key: string) => void);
+  protected smear?: ((key: string) => void);
+
   constructor(props: Readonly<IDemoProps>) {
     super(props);
-    this.state = { tiles: this.newDemo() };
+    this.state = this.getDefaultState();
   }
 
   public render() {
@@ -38,7 +40,9 @@ export default abstract class Demo extends React.Component<IDemoProps, IDemoStat
 
   protected abstract get title(): string;
 
-  protected canExchange?(a: string, b?: string): boolean;
+  protected abstract getDefaultState(): Readonly<TState>;
+
+  protected canExchange?(a: string, b?: string): boolean | number;
 
   protected getTileById(id: string) {
     return this.state.tiles.find((e) => e.id === id)!;
@@ -57,12 +61,19 @@ export default abstract class Demo extends React.Component<IDemoProps, IDemoStat
   }
 
   protected renderDemo() {
-    const {tuning} = this.props;
-    return <SlideGrid tuning={tuning} exchange={this.exchange} canExchange={this.canExchange}>
+    const { tuning } = this.props;
+    return <>
+    {this.renderHeader()}
+    <SlideGrid tuning={tuning} exchange={this.exchange} canExchange={this.canExchange} tap={this.tap} smear={this.smear}>
       {this.state.tiles.map((tile) => <div className="tile" key={tile.id} id={tile.id}>
         {this.renderTileContent(tile)}
       </div>)}
     </SlideGrid>
+    </>;
+  }
+  
+  protected renderHeader(): any {
+    return false;
   }
 
   protected renderTileContent(tile: ITile) {
@@ -100,4 +111,5 @@ export default abstract class Demo extends React.Component<IDemoProps, IDemoStat
   }
 
 }
+
 

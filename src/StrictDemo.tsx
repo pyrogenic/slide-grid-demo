@@ -1,16 +1,60 @@
 import * as React from 'react';
-import Demo, {ITile} from './Demo';
+import Demo, { ITile, IDemoState } from './Demo';
+import "./StrictDemo.css";
+import Form from 'react-bootstrap/Form';
 
-class StrictDemo extends Demo {
+enum Mode {
+  lock = "Lock",
+  costUp = "Cost Up",
+  costDown = "Cost Down",
+}
+
+interface IState extends IDemoState {
+  mode: Mode;
+  locked: string[];
+  costs: { [key: string]: number | undefined };
+}
+
+class StrictDemo extends Demo<IState> {
   protected title = "Strict Demo";
-  
-  protected renderTileContent(tile: ITile) {
-    return <div>{tile.title}</div>;
+
+  protected getDefaultState() {
+    return { tiles: this.newDemo(), mode: Mode.lock, locked: [], costs: {} };
   }
 
-  protected canExchange = (a: string, b?: string): boolean => {
+  protected renderHeader() {
+    return <Form>
+      <Form.Group>
+        <Form.Label>Click tiles to</Form.Label>
+      <Form.Control as="select" value={this.state.mode.toString()} onChange={(e) => this.setState({ mode: e.currentTarget.value as Mode })}>
+        {Object.getOwnPropertyNames(Mode).map((key) => <option value={key}>{Mode[key as any]}</option>)}
+      </Form.Control>
+      </Form.Group>
+      </Form>;
+  }
+
+  protected renderTileContent(tile: ITile) {
+    const classes = [];
+    if (this.state.locked.includes(tile.id)) {
+      classes.push("locked");
+    } else {
+      const cost = this.state.costs[tile.id] || 1;
+      classes.push(`cost-${cost}`);
+    }
+    return <div className={classes.join(" ")}>
+      <div>{tile.title}</div>
+    </div>;
+  }
+
+  protected canExchange = (a: string, b?: string): boolean | number => {
+    if (this.state.locked.includes(a)) {
+      return false;
+    }
     if (b === undefined) {
       return true;
+    }
+    if (this.state.locked.includes(b)) {
+      return false;
     }
     const aIndex = this.getTileIndexById(a);
     const bIndex = this.getTileIndexById(b);
@@ -18,8 +62,38 @@ class StrictDemo extends Demo {
     const aCol = aIndex % 4
     const bRow = Math.floor(bIndex / 4);
     const bCol = bIndex % 4
-    return (aRow === bRow && Math.abs(aCol - bCol) === 1)
+    const adjacent = (aRow === bRow && Math.abs(aCol - bCol) === 1)
       || (aCol === bCol && Math.abs(aRow - bRow) === 1);
+    if (!adjacent) {
+      return false;
+    }
+    return this.state.costs[b] || true;
+  }
+
+  protected tap = (key: string) => {
+    console.log(`tap: ${key}`);
+    this.setState((state) => {
+      const { mode, locked, costs } = state;
+      if (mode === Mode.lock) {
+        const i = locked.indexOf(key);
+        if (i >= 0) {
+          locked.splice(i, 1);
+        } else {
+          locked.push(key);
+        }
+      } else {
+        let cost = costs[key];
+        const delta = mode === Mode.costDown ? -1 : 1;
+        cost = (cost || 1) + delta;
+        if (cost < 2) {
+          cost = 5;
+        } else if (cost > 5) {
+          cost = 1;
+        }
+        costs[key] = cost;
+      }
+      return { costs, locked };
+    });
   }
 }
 

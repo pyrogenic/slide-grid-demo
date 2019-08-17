@@ -1,0 +1,29 @@
+div.locked {
+    background: black;
+    color: white;
+}
+
+div.cost-1 {
+    border: transparent;
+    outline: dotted 1px;
+}
+
+div.cost-2 {
+    border: transparent;
+    outline: dashed 1px;
+}
+
+div.cost-3 {
+    border: transparent;
+    outline: solid 1px;
+}
+
+div.cost-4 {
+    border: transparent;
+    outline: double 4px;
+}
+
+div.cost-5 {
+    border: transparent;
+    outline: double 8px;
+}
