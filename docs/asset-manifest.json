@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/slide-grid-demo/static/css/main.149ec9ca.chunk.css",
+    "main.js": "/slide-grid-demo/static/js/main.4992d9fa.chunk.js",
+    "main.js.map": "/slide-grid-demo/static/js/main.4992d9fa.chunk.js.map",
+    "runtime~main.js": "/slide-grid-demo/static/js/runtime~main.25f14562.js",
+    "runtime~main.js.map": "/slide-grid-demo/static/js/runtime~main.25f14562.js.map",
+    "static/js/2.c7ae904b.chunk.js": "/slide-grid-demo/static/js/2.c7ae904b.chunk.js",
+    "static/js/2.c7ae904b.chunk.js.map": "/slide-grid-demo/static/js/2.c7ae904b.chunk.js.map",
+    "index.html": "/slide-grid-demo/index.html",
+    "precache-manifest.017149f2643a70977a3dd2d802198639.js": "/slide-grid-demo/precache-manifest.017149f2643a70977a3dd2d802198639.js",
+    "service-worker.js": "/slide-grid-demo/service-worker.js",
+    "static/css/main.149ec9ca.chunk.css.map": "/slide-grid-demo/static/css/main.149ec9ca.chunk.css.map"
+  }
+}

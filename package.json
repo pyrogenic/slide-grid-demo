@@ -2,7 +2,8 @@
   "name": "slide-grid-demo",
   "version": "0.1.0",
   "private": false,
-  "homepage" : "http://pyrogenic.github.io/slide-grid-demo",
+  "license": "MIT",
+  "homepage": "http://pyrogenic.github.io/slide-grid-demo",
   "dependencies": {
     "lodash": "^4.17.13",
     "node-dijkstra": "^2.5.0",
@@ -18,13 +19,16 @@
     "@types/node": "12.0.12",
     "@types/node-dijkstra": "^2.5.0",
     "@types/react": "16.8.23",
-    "@types/react-dom": "16.8.4"
+    "@types/react-dom": "16.8.4",
+    "gh-pages": "^2.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
