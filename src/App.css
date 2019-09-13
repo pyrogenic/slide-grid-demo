@@ -29,8 +29,6 @@
 }
 
 .tile {
-  /* transform-origin: 50% 50%; */
-  /* float: left; */
   align-content: center;
   vertical-align: middle;
   height: 5rem;
