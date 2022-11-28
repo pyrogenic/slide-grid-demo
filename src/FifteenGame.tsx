@@ -4,7 +4,7 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Demo, { IDemoState } from './Demo';
-import SlideGrid from './SlideGrid';
+import SlideGrid from '@pyrogenic/slide-grid/lib/SlideGrid';
 
 class FifteenGame extends Demo {
   protected title = "15 Game";

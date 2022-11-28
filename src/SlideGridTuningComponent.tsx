@@ -1,5 +1,5 @@
+import { ISlideGridTuning } from "@pyrogenic/slide-grid/lib/SlideGrid";
 import React from "react";
-import { ISlideGridTuning } from "./SlideGrid";
 import Form from "react-bootstrap/Form";
 
 export default class SlideGridTuningComponent extends React.Component<{ tuning: ISlideGridTuning, change(tuning: Partial<ISlideGridTuning>): void }> {

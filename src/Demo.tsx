@@ -1,7 +1,7 @@
+import SlideGrid, { ISlideGridTuning } from '@pyrogenic/slide-grid/lib/SlideGrid';
 import React from 'react';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import SlideGrid, { ISlideGridTuning } from './SlideGrid';
 
 let NEXT_TILE_ID = 0;
 

@@ -1,6 +1,5 @@
 import React from 'react';
-// import { ISlideGridTuning } from '@pyrogenic/slide-grid/lib/SlideGrid';
-import { ISlideGridTuning, DEFAULT_TUNING } from './SlideGrid';
+import { ISlideGridTuning, DEFAULT_TUNING } from '@pyrogenic/slide-grid/lib/SlideGrid';
 import Container from 'react-bootstrap/Container';
 import './App.css';
 import BasicDemo from './BasicDemo';

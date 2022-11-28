@@ -5,21 +5,22 @@
   "license": "MIT",
   "homepage": "http://pyrogenic.github.io/slide-grid-demo",
   "dependencies": {
+    "@pyrogenic/slide-grid": "*",
     "lodash": "^4.17.19",
     "node-dijkstra": "^2.5.0",
-    "react": "^16.8.6",
-    "react-bootstrap": "^1.0.0-beta.9",
-    "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1",
-    "typescript": "3.5.2"
+    "react": "*",
+    "react-bootstrap": "*",
+    "react-dom": "*",
+    "react-scripts": "^4",
+    "typescript": "*"
   },
   "devDependencies": {
     "@types/jest": "24.0.15",
     "@types/lodash": "4.14.108",
     "@types/node": "12.0.12",
     "@types/node-dijkstra": "^2.5.0",
-    "@types/react": "16.8.23",
-    "@types/react-dom": "16.8.4",
+    "@types/react": "*",
+    "@types/react-dom": "*",
     "gh-pages": "^2.1.1"
   },
   "resolutions": {

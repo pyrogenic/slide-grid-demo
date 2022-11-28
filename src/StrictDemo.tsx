@@ -9,6 +9,8 @@ enum Mode {
   costDown = "Cost Down",
 }
 
+type ModeKey = keyof typeof Mode;
+
 interface IState extends IDemoState {
   mode: Mode;
   locked: string[];
@@ -27,7 +29,7 @@ class StrictDemo extends Demo<IState> {
       <Form.Group>
         <Form.Label>Click tiles to</Form.Label>
       <Form.Control as="select" value={this.state.mode.toString()} onChange={(e) => this.setState({ mode: e.currentTarget.value as Mode })}>
-        {Object.getOwnPropertyNames(Mode).map((key) => <option value={key}>{Mode[key as any]}</option>)}
+          {Object.getOwnPropertyNames(Mode).map((key) => <option value={key}>{Mode[key as ModeKey]}</option>)}
       </Form.Control>
       </Form.Group>
       </Form>;
