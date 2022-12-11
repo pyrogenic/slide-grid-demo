@@ -20,6 +20,7 @@ export interface IDemoProps {
 
 export default abstract class Demo<TState extends IDemoState = IDemoState> extends React.Component<IDemoProps, TState> {
   protected tap?: ((key: string) => void);
+  protected done?: ((key: string) => void);
   protected smear?: ((key: string) => void);
 
   constructor(props: Readonly<IDemoProps>) {
@@ -64,7 +65,7 @@ export default abstract class Demo<TState extends IDemoState = IDemoState> exten
     const { tuning } = this.props;
     return <>
     {this.renderHeader()}
-    <SlideGrid tuning={tuning} exchange={this.exchange} canExchange={this.canExchange} tap={this.tap} smear={this.smear}>
+      <SlideGrid tuning={tuning} exchange={this.exchange} canExchange={this.canExchange} tap={this.tap} done={this.done} smear={this.smear}>
       {this.state.tiles.map((tile) => <div className="tile" key={tile.id} id={tile.id}>
         {this.renderTileContent(tile)}
       </div>)}

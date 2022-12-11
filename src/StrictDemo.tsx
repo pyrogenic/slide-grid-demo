@@ -1,7 +1,9 @@
 import * as React from 'react';
 import Demo, { ITile, IDemoState } from './Demo';
 import "./StrictDemo.css";
+import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
 
 enum Mode {
   lock = "Lock",
@@ -25,14 +27,17 @@ class StrictDemo extends Demo<IState> {
   }
 
   protected renderHeader() {
-    return <Form>
+    return <Row>
+      <Col>
+        <Form>
       <Form.Group>
         <Form.Label>Click tiles to</Form.Label>
-      <Form.Control as="select" value={this.state.mode.toString()} onChange={(e) => this.setState({ mode: e.currentTarget.value as Mode })}>
-          {Object.getOwnPropertyNames(Mode).map((key) => <option value={key}>{Mode[key as ModeKey]}</option>)}
-      </Form.Control>
+            <Form.Select value={this.state.mode.toString()} onChange={(e) => this.setState({ mode: e.currentTarget.value as Mode })}>
+              {Object.getOwnPropertyNames(Mode).map((key) => <option key={key} value={key}>{Mode[key as ModeKey]}</option>)}
+            </Form.Select>
       </Form.Group>
-      </Form>;
+        </Form>
+      </Col></Row>;
   }
 
   protected renderTileContent(tile: ITile) {

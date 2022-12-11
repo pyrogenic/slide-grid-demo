@@ -1,11 +1,12 @@
+import { DEFAULT_TUNING, ISlideGridTuning } from '@pyrogenic/slide-grid/lib/SlideGrid';
 import React from 'react';
-import { ISlideGridTuning, DEFAULT_TUNING } from '@pyrogenic/slide-grid/lib/SlideGrid';
 import Container from 'react-bootstrap/Container';
 import './App.css';
 import BasicDemo from './BasicDemo';
-import StrictDemo from './StrictDemo';
 import FifteenGame from './FifteenGame';
 import SlideGridTuningComponent from './SlideGridTuningComponent';
+import SmearDemo from './SmearDemo';
+import StrictDemo from './StrictDemo';
 
 function SlideGridLink() {
   return <a href="https://github.com/pyrogenic/slide-grid"><code>slide-grid</code></a>;
@@ -35,6 +36,7 @@ class App extends React.Component<{}, { tuning: ISlideGridTuning }> {
       }} />
       <h2>Demos</h2>
       <BasicDemo tuning={tuning}/>
+      <SmearDemo tuning={tuning} />
       <StrictDemo tuning={tuning}/>
       <FifteenGame tuning={tuning}/>
     </Container>;
