@@ -1,17 +1,10 @@
-.slide-grid {
-  user-select: none;
-  touch-action: none;  
-}
-
-.slide-grid > * {
-  position: relative;
-}
-
-.dragging {
+.slide-grid .dragging {
+  transform-origin: 50% 50%;
+  position: inherit;
   z-index: 1;
 }
 
-/*************/
+/* #### */
 
 .slide-grid {
   line-height: initial;
