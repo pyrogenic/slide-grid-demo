@@ -1,9 +1,3 @@
-.slide-grid .dragging {
-  transform-origin: 50% 50%;
-  position: inherit;
-  z-index: 1;
-}
-
 /* #### */
 
 .slide-grid {
