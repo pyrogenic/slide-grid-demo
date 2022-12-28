@@ -1,12 +1,16 @@
+import SlideGrid from '@pyrogenic/slide-grid/lib/SlideGrid';
+import range from 'lodash/range';
 import * as React from 'react';
 import Badge from 'react-bootstrap/Badge';
 import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/esm/Form';
 import Row from 'react-bootstrap/Row';
 import Demo, { IDemoState, ITile } from './Demo';
 
 interface ISmearState extends IDemoState {
   selected?: ITile[];
   last?: ITile[];
+  useKeys?: boolean;
 }
 
 class SmearDemo extends Demo<ISmearState> {
@@ -26,6 +30,41 @@ class SmearDemo extends Demo<ISmearState> {
           } <Badge>{this.state.last?.map(({ title }) => title).join("-")}</Badge>
         </Col>
       </Row>
+      <Row className="m-2">
+        <Col>
+          <Form.Check label="Use Keys" checked={!!this.state.useKeys} onChange={() => this.setState(({useKeys}) => ({useKeys: !useKeys}))}/>
+        </Col>
+      </Row>
+    </>;
+  }
+
+
+  protected renderDemo() {
+    if (!this.state.useKeys) {
+      return  super.renderDemo();
+    }
+    const { tuning } = this.props;
+    return <>
+      {this.renderHeader()}
+      <SlideGrid
+        keys={this.state.tiles.map(({id}) => id)}
+        tuning={tuning}
+        exchange={this.exchange}
+        canExchange={this.canExchange}
+        tap={this.tap}
+        done={this.done}
+        smear={this.smear}
+      >
+        {range(0, 4).map((row) =>
+          <div key={row}>
+            {range(0, 4).map((col) => {
+              const tile = this.state.tiles[row * 4 + col];
+              return <div className="tile" key={tile.id} id={tile.id}>
+                {this.renderTileContent(tile)}
+              </div>;
+            })}
+          </div>)}
+      </SlideGrid>
     </>;
   }
 
