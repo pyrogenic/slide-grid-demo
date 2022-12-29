@@ -1,7 +1,6 @@
 import SlideGrid from '@pyrogenic/slide-grid/lib/SlideGrid';
 import range from 'lodash/range';
 import * as React from 'react';
-import Row from 'react-bootstrap/esm/Row';
 import Demo, { IDemoState, ITile } from './Demo';
 
 class KeysDemo extends Demo {

@@ -11,6 +11,7 @@ interface ISmearState extends IDemoState {
   selected?: ITile[];
   last?: ITile[];
   useKeys?: boolean;
+  nestTiles?: boolean;
 }
 
 class SmearDemo extends Demo<ISmearState> {
@@ -32,7 +33,10 @@ class SmearDemo extends Demo<ISmearState> {
       </Row>
       <Row className="m-2">
         <Col>
-          <Form.Check label="Use Keys" checked={!!this.state.useKeys} onChange={() => this.setState(({useKeys}) => ({useKeys: !useKeys}))}/>
+          <Form.Check id="useKeys" label="Use Keys" checked={!!this.state.useKeys} onChange={() => this.setState(({useKeys}) => ({useKeys: !useKeys}))}/>
+        </Col>
+        <Col>
+          <Form.Check id="nestTiles" label="Nest Tiles" checked={!!this.state.nestTiles} onChange={() => this.setState(({nestTiles}) => ({nestTiles: !nestTiles}))}/>
         </Col>
       </Row>
     </>;
@@ -41,7 +45,7 @@ class SmearDemo extends Demo<ISmearState> {
 
   protected renderDemo() {
     if (!this.state.useKeys) {
-      return  super.renderDemo();
+      return super.renderDemo();
     }
     const { tuning } = this.props;
     return <>
@@ -65,10 +69,14 @@ class SmearDemo extends Demo<ISmearState> {
             })}
           </div>)}
       </SlideGrid>
+      <Row>
+        {this.state.useKeys && <Form.Text>touch reordering is not supported when using <code>keys</code></Form.Text>}
+      </Row>
     </>;
   }
 
   protected renderTileContent(tile: ITile) {
+    if (this.state.nestTiles) {}
     return <div>{tile.title}</div>;
   }
 
